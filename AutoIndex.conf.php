@@ -18,7 +18,7 @@ force_download	false
 search_enabled	true
 anti_leech	true
 must_login_to_download	false
-archive	true
+archive	false
 parse_htaccess	false
 days_new	0
 thumbnail_height	0
