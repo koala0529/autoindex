@@ -13,7 +13,7 @@ download_count	false
 hidden_files	hidden_files
 banned_list	false
 show_dir_size	false
-use_login_system	false
+use_login_system	true
 force_download	false
 search_enabled	true
 anti_leech	true
