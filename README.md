@@ -12,18 +12,22 @@
 所以呢，就在此基础上修改了小于32m时使用直接下载，大于32m时使用断点下载；
 * 2.自带的default模板的搜索框显示在最下方，不符合使用习惯，所以修改到了显示在上方一行中；
 * 3.其自带的上传功能在上传大文件时，sf会提示文件过大不能上传，所以借助Huploadify插件实现了断点上传。
+* 4.登录ssh可以使用wget命令下载，速度杠杠的，真正的离线下载网盘，只要是wget支持的协议都可以使用。
+
 # 空间写入权限
 sf php的空间默认不具有写入权限，所以需要登录ssh利用chmod 777修改htdocs目录权限，当然还用AutoIndex.conf.php，
 hidden_files，.htpasswd.autoindex等文件的权限以便在线管理autoindex文件。
+
+
+# 个人网盘首页
+
+* http://download.koala.tk
+
+### 集成了phpshell，访问时请在域名后输入/phpshell即可打开shell，默认账户密码均为admin。
 
 # 感谢
 
 * 1.autoindex 项目
 * 2.jquery.Huploadify.js 项目@吕大豹
 * 3.http://www.jb51.net/article/38005.htm
-
-# 个人网盘首页
-
-* http://download.koala.tk
-
-# 集成了phpshell，访问时请在域名后输入/phpshell即可打开shell，默认账户密码均为admin。
+* 4.phpshell项目
