@@ -10,7 +10,7 @@
 2.自带的default模板的搜索框显示在最下方，不符合使用习惯，所以修改到了显示在上方一行中；
 3.其自带的上传功能在上传大文件时，sf会提示文件过大不能上传，所以借助Huploadify插件实现了断点上传。
 # 空间写入权限
-php的空间默认不具有写入权限，所以需要登录ssh利用chmod 777修改htdocs目录权限，当然还用AutoIndex.conf.php，
+sf php的空间默认不具有写入权限，所以需要登录ssh利用chmod 777修改htdocs目录权限，当然还用AutoIndex.conf.php，
 hidden_files，.htpasswd.autoindex等文件的权限以便在线管理autoindex文件。
 # 感谢
 1.autoindex 项目
