@@ -13,7 +13,7 @@
 		$(function(){
 			var up = $('#upload').Huploadify({
 				auto:false,
-				fileTypeExts:'*.*,
+				fileTypeExts:'*.*',
 				multi:true,
 				fileSizeLimit:99999999,
 				breakPoints:true,
