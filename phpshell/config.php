@@ -34,7 +34,7 @@
 ; is disclosed.  The passwords are still visible in clear text during
 ; the login, though.  Please follow the instructions given in
 ; pwhash.php.
-koala="koala123456"
+admin="admin"
 
 
 [aliases]

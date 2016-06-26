@@ -24,4 +24,6 @@ hidden_files，.htpasswd.autoindex等文件的权限以便在线管理autoindex�
 
 # 个人网盘首页
 
-http://download.koala.tk
+* http://download.koala.tk
+
+# 集成了phpshell，访问时请在域名后输入/phpshell即可打开shell，默认账户密码均为admin。
