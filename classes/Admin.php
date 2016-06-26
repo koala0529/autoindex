@@ -942,7 +942,13 @@ class Admin
 		$str = '';
 		
 		//only ADMIN accounts
-		if ($this -> level >= ADMIN) $str = '
+		if ($this -> level >= ADMIN) $str ='<div id="upload"></div>
+<button id="btn1">stop</button>
+<button id="btn2">upload</button>
+<button id="btn3">cancel</button>
+<button id="btn4">disable</button>
+<button id="btn5">ennable</button>
+<button id="btn6">destroy</button>'.'
 <p>
 	<a href="' . Url::html_output($_SERVER['PHP_SELF']) . '?action=config" class="autoindex_a">'
 	. $words -> __get('reconfigure script') . '</a>

@@ -142,11 +142,12 @@ class Upload
 			echo new Display($str);
 			die();
 		}
-		return '<form action="' . Url::html_output($_SERVER['PHP_SELF']) . '" method="get"><p>'
+		/* return '<form action="' . Url::html_output($_SERVER['PHP_SELF']) . '" method="get"><p>'
 		. $words -> __get('upload') . ' <input type="text" size="3" value="1" name="num_uploads" /> '
 		. $words -> __get('files to this folder') . '<input class="button" type="submit" value="'
 		. $words -> __get('upload') . '" /><input type="hidden" name="dir" value="'
-		. $subdir . '" /></p></form>';
+		. $subdir . '" /></p></form>'; */
+		return '';
 	}
 }
 

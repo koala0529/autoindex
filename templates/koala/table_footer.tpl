@@ -39,7 +39,6 @@
 </div>
 {end if:archive}
 
-
 <p />
 <table class="autoindex_table">
  <tr style="vertical-align: top;">
