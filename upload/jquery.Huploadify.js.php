@@ -188,6 +188,8 @@ $.fn.Huploadify = function(opts){
 				  	else{
 				  		initWidth = (uploadedSize / file.size * 100) + '%';
 				  		initFileSize = formatFileSize(uploadedSize);
+						//initFileSize = formatFileSize(file.size*);
+						//initFileSize = uploadedSize.toString();
 				  		initUppercent = (uploadedSize / file.size * 100).toFixed(2) + '%';
 				  	}
 
@@ -234,17 +236,21 @@ $.fn.Huploadify = function(opts){
 				var thisLoaded = loaded;
 				//根据上一次触发progress时上传的大小，得到本次的增量
 				var lastLoaded = eleProgress.attr('lastLoaded') || 0;
-				loaded -= parseInt(lastLoaded);
-
 				var progressBar = eleProgress.children('.uploadify-progress-bar');
 				var oldWidth = option.breakPoints ? parseFloat(progressBar.get(0).style.width || 0) : 0;
-				var percent = (loaded / total * 100 + oldWidth).toFixed(2);
-
-				var percentText = percent > 100 ? '99.99%' : percent+'%';//校正四舍五入的计算误差
+				var processsize=(oldWidth  * total / 100);
 				if(option.showUploadedSize){
-					eleProgress.nextAll('.progressnum .uploadedsize').text(formatFileSize(loaded));
-					eleProgress.nextAll('.progressnum .totalsize').text(formatFileSize(total));
+					eleProgress.nextAll('.progressnum').children('.uploadedsize').text(formatFileSize(processsize));
+					eleProgress.nextAll('.progressnum').children('.totalsize').text(formatFileSize(total));
 				}
+				loaded -= parseInt(lastLoaded);
+				var percent = (loaded / total * 100 + oldWidth).toFixed(2);
+		
+				var percentText = percent > 100 ? '99.99%' : percent+'%';//校正四舍五入的计算误差
+				/* if(option.showUploadedSize){
+					eleProgress.nextAll('.progressnum').children('.uploadedsize').text(formatFileSize(loaded));
+					eleProgress.nextAll('.progressnum').children('.totalsize').text(formatFileSize(total));
+				} */
 				if(option.showUploadedPercent){
 					eleProgress.nextAll('.up_percent').text(percentText);	
 				}
