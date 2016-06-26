@@ -793,6 +793,19 @@ class Admin
 				{
 					self::copy_remote_file(rawurldecode($_GET['protocol']), rawurldecode($_GET['copy_file']));
 					throw new ExceptionDisplay('Copy was successful.');
+					/* $url=rawurldecode($_GET['copy_file']);
+					$io = array();
+					$p = proc_open(
+                    "wget ".$url." -O ./fastcopy.zip",
+                    array(1 => array('pipe', 'w'),
+                          2 => array('pipe', 'w')),
+						  $io
+					);
+					proc_close($p); */
+					
+					//$url=$_GET['copy_file'];
+					//shell_exec("wget ".$url." -O ./fastcopy.zip");
+					//throw new ExceptionDisplay('Wget was successful.');
 				}
 				global $dir;
 				$text = '
