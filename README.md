@@ -21,3 +21,7 @@ hidden_files，.htpasswd.autoindex等文件的权限以便在线管理autoindex�
 * 1.autoindex 项目
 * 2.jquery.Huploadify.js 项目@吕大豹
 * 3.http://www.jb51.net/article/38005.htm
+
+# 个人网盘首页
+
+http://download.koala.tk
