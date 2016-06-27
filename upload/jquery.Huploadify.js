@@ -34,9 +34,10 @@ $.fn.Huploadify = function(opts){
 		onUploadError:null, //上传失败的动作
 		onInit:null,//初始化时的动作
 		onCancel:null,//删除掉某个文件后的回调函数，可传入参数file
-		onSelect:null//选择文件后执行的动作，可传入参数files，文件列表
+		onSelect:null,//选择文件后执行的动作，可传入参数files，文件列表
+		currentdir:''
 	}
-
+	//var currentdir='';
 	var option = $.extend(defaults,opts);	
 
 	//将文件的单位由bytes转换为KB或MB，若第二个参数指定为true，则永远转换为KB
@@ -188,6 +189,8 @@ $.fn.Huploadify = function(opts){
 				  	else{
 				  		initWidth = (uploadedSize / file.size * 100) + '%';
 				  		initFileSize = formatFileSize(uploadedSize);
+						//initFileSize = formatFileSize(file.size*);
+						//initFileSize = uploadedSize.toString();
 				  		initUppercent = (uploadedSize / file.size * 100).toFixed(2) + '%';
 				  	}
 
@@ -234,17 +237,25 @@ $.fn.Huploadify = function(opts){
 				var thisLoaded = loaded;
 				//根据上一次触发progress时上传的大小，得到本次的增量
 				var lastLoaded = eleProgress.attr('lastLoaded') || 0;
-				loaded -= parseInt(lastLoaded);
-
 				var progressBar = eleProgress.children('.uploadify-progress-bar');
 				var oldWidth = option.breakPoints ? parseFloat(progressBar.get(0).style.width || 0) : 0;
-				var percent = (loaded / total * 100 + oldWidth).toFixed(2);
-
-				var percentText = percent > 100 ? '99.99%' : percent+'%';//校正四舍五入的计算误差
+				//修正添加的内容
+				var processsize=(oldWidth  * total / 100);
 				if(option.showUploadedSize){
-					eleProgress.nextAll('.progressnum .uploadedsize').text(formatFileSize(loaded));
-					eleProgress.nextAll('.progressnum .totalsize').text(formatFileSize(total));
+					eleProgress.nextAll('.progressnum').children('.uploadedsize').text(formatFileSize(processsize));
+					eleProgress.nextAll('.progressnum').children('.totalsize').text(formatFileSize(total));
 				}
+				
+				loaded -= parseInt(lastLoaded);
+				var percent = (loaded / total * 100 + oldWidth).toFixed(2);
+		
+				var percentText = percent > 100 ? '99.99%' : percent+'%';//校正四舍五入的计算误差
+				//原先的给注释掉了
+				/* if(option.showUploadedSize){
+					eleProgress.nextAll('.progressnum').children('.uploadedsize').text(formatFileSize(loaded));
+					eleProgress.nextAll('.progressnum').children('.totalsize').text(formatFileSize(total));
+				} */
+				
 				if(option.showUploadedPercent){
 					eleProgress.nextAll('.up_percent').text(percentText);	
 				}
@@ -428,9 +439,10 @@ $.fn.Huploadify = function(opts){
  				  //option.formData['file_name'] = originalFile.name;
 				  //option.formData['last_time'] = originalFile.lastModifiedDate.getTime();
 
-				  option.formData.fileName =originalFile.name;
-				  //console.log(option.formData.fileName);
+				  option.formData.fileName = originalFile.name;
 				  option.formData.lastModifiedDate = originalFile.lastModifiedDate.getTime();
+				  //option.formData.dir="<?php echo $_GET['dir'];?>";
+				  option.formData.dir=option.currentdir;
 				  fileObj.uploadAllowed = true;//重置允许上传为true
 				  sendBlob(this.url,xhr,file,option.formData);
 			  }	
@@ -472,6 +484,7 @@ $.fn.Huploadify = function(opts){
 				var file = getFile(fileIndex,fileObj.fileFilter);
 				file && fileObj.funUploadFile(file);	
 			}
+
 		},
 		cancel : function(fileIndex){
 			if(fileIndex === '*'){
