@@ -390,6 +390,7 @@ $.fn.Huploadify = function(opts){
 										if(fileObj.uploadAllowed){
 											file = originalFile.slice(uploadedSize,uploadedSize + option.fileSplitSize);
 									  	file.name = fileName;file.id = fileId;file.index = fileIndex;file.size = fileSize;
+											option.formData.fileName=fileName;
 											sendBlob(fileObj.url,xhr,file,option.formData);	
 										}
 									}
@@ -427,7 +428,8 @@ $.fn.Huploadify = function(opts){
  				  //option.formData['file_name'] = originalFile.name;
 				  //option.formData['last_time'] = originalFile.lastModifiedDate.getTime();
 
-				  option.formData.fileName = originalFile.name;
+				  option.formData.fileName =originalFile.name;
+				  //console.log(option.formData.fileName);
 				  option.formData.lastModifiedDate = originalFile.lastModifiedDate.getTime();
 				  fileObj.uploadAllowed = true;//重置允许上传为true
 				  sendBlob(this.url,xhr,file,option.formData);

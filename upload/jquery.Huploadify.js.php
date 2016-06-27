@@ -238,19 +238,23 @@ $.fn.Huploadify = function(opts){
 				var lastLoaded = eleProgress.attr('lastLoaded') || 0;
 				var progressBar = eleProgress.children('.uploadify-progress-bar');
 				var oldWidth = option.breakPoints ? parseFloat(progressBar.get(0).style.width || 0) : 0;
+				//修正添加的内容
 				var processsize=(oldWidth  * total / 100);
 				if(option.showUploadedSize){
 					eleProgress.nextAll('.progressnum').children('.uploadedsize').text(formatFileSize(processsize));
 					eleProgress.nextAll('.progressnum').children('.totalsize').text(formatFileSize(total));
 				}
+				
 				loaded -= parseInt(lastLoaded);
 				var percent = (loaded / total * 100 + oldWidth).toFixed(2);
 		
 				var percentText = percent > 100 ? '99.99%' : percent+'%';//校正四舍五入的计算误差
+				//原先的给注释掉了
 				/* if(option.showUploadedSize){
 					eleProgress.nextAll('.progressnum').children('.uploadedsize').text(formatFileSize(loaded));
 					eleProgress.nextAll('.progressnum').children('.totalsize').text(formatFileSize(total));
 				} */
+				
 				if(option.showUploadedPercent){
 					eleProgress.nextAll('.up_percent').text(percentText);	
 				}
@@ -396,6 +400,7 @@ $.fn.Huploadify = function(opts){
 										if(fileObj.uploadAllowed){
 											file = originalFile.slice(uploadedSize,uploadedSize + option.fileSplitSize);
 									  	file.name = fileName;file.id = fileId;file.index = fileIndex;file.size = fileSize;
+											option.formData.fileName=fileName;
 											sendBlob(fileObj.url,xhr,file,option.formData);	
 										}
 									}

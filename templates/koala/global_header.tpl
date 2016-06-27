@@ -20,7 +20,7 @@
 				saveInfoLocal:true,
 				showUploadedPercent:true,//是否实时显示上传的百分比，如20%
 				showUploadedSize:true,
-				removeTimeout:9999999,
+				removeTimeout:1,
 				uploader:'upload/upload.php',
 				onUploadStart:function(){
 					//up.settings('formData', {aaaaa:'1111111',bb:'2222'});

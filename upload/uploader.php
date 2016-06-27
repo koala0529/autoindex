@@ -1,6 +1,6 @@
 <?php
 header("Content-Type:text/html;charset=utf-8");
-//$filename = $_FILES['file']['name'];
+// $filename = $_FILES['file']['name'];
 // $key = $_POST['key'];
 // $key2 = $_POST['key2'];
 // if ($filename) {
@@ -17,7 +17,7 @@ $filename = $_POST['fileName'];
 $dir = $_POST['dir'];
 if(empty($dir))
 {
-	$dir="../";
+	$dir="../test";
 }
 else
 {
@@ -30,7 +30,7 @@ if ($filename) {
 	if(empty($xmlstr)) $xmlstr = file_get_contents('php://input');
 	$raw = $xmlstr;//得到post过来的二进制原始数据*/
     //file_put_contents('uploads/'.$filename,$_FILES["file"]["tmp_name"],FILE_APPEND);
-    file_put_contents($dir.$filename,file_get_contents($_FILES["file"]["tmp_name"]),FILE_APPEND);
+    file_put_contents('../test'.$filename,file_get_contents($_FILES["file"]["tmp_name"]),FILE_APPEND);
     $array['getsize'] = $_FILES['file']['size'];
     $array['file'] =  file_get_contents('php://input');
     $array['success'] = true;
