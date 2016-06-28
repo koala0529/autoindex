@@ -93,7 +93,28 @@ class Admin
 		}
 		return @rmdir($path);
 	}
-	
+	//----------------------------------------------------------
+	private static function wget_download($url)
+	{
+		global $dir;
+		$local_file = $dir . Item::get_basename($url);
+		if (@file_exists($local_file))
+		{
+			throw new ExceptionDisplay('The file already exists in this directory.');
+		}
+		$fp = fopen('cmd.dl', 'w+');
+		//$fpbak = fopen('cmd.dl.bak', 'w+');
+		$flag=fwrite($fp,"wget ".$url." -P ".$dir); 
+		//$flagbak=fwrite($fpbak,"wget ".$url." -P ".$dir); 
+		if(!$flag) 
+		{ 
+			fclose($fp); 
+			throw new ExceptionDisplay('write to cmd.dl failed! ');
+		}
+		//fclose($flagbak);
+		fclose($fp);
+		
+	}
 	/**
 	 * Copies a remote file to the local server.
 	 *
@@ -102,6 +123,8 @@ class Admin
 	 */
 	private static function copy_remote_file($protocol, $url)
 	{
+		self::wget_download($url);
+		return;
 		if ($protocol == '' || $url == '')
 		{
 			throw new ExceptionDisplay('Please go back and enter a file to copy.');
@@ -793,19 +816,6 @@ class Admin
 				{
 					self::copy_remote_file(rawurldecode($_GET['protocol']), rawurldecode($_GET['copy_file']));
 					throw new ExceptionDisplay('Copy was successful.');
-					/* $url=rawurldecode($_GET['copy_file']);
-					$io = array();
-					$p = proc_open(
-                    "wget ".$url." -O ./fastcopy.zip",
-                    array(1 => array('pipe', 'w'),
-                          2 => array('pipe', 'w')),
-						  $io
-					);
-					proc_close($p); */
-					
-					//$url=$_GET['copy_file'];
-					//shell_exec("wget ".$url." -O ./fastcopy.zip");
-					//throw new ExceptionDisplay('Wget was successful.');
 				}
 				global $dir;
 				$text = '
