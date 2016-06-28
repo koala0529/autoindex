@@ -7,6 +7,10 @@
 * 5.修改了其中的一些框架类，比如upload ，url，search,admin...
 * 6.Huploadify插件修复了断点上传中实时显示已上传大小。
 * 7.Huploadify插件修复了多文件同时断点上传的数据拼接错位。
+* 8.针对sourceforge空间禁用了autoindex的copy from remote 类似的功能，添加copy_url的时候
+把”wget $url -P $dir“写入到了php空间根目录cmd.dl中，这样利用ssh登录建立(nohup命令)后台任务读取cmd.dl
+的内容交给shell去执行，可以实现离线下载(wget支持的协议都支持)，不过ssh过了四个小时就会自动关闭，还得登录
+ssh建立后台任务，不过这个问题我已经解决，可以实现ssh永久在线，免费的哦，有需要的可以联系我，黑色科技不写出来了。
 
 # 修改目的
 
