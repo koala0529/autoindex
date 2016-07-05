@@ -104,7 +104,7 @@ class Admin
 		}
 		$fp = fopen('cmd.dl', 'w+');
 		//$fpbak = fopen('cmd.dl.bak', 'w+');
-		$flag=fwrite($fp,"wget ".$url." -P ".$dir); 
+		$flag=fwrite($fp,"wget ".$url." -P ".$dir.";echo download_ok"); 
 		//$flagbak=fwrite($fpbak,"wget ".$url." -P ".$dir); 
 		if(!$flag) 
 		{ 
@@ -825,8 +825,8 @@ class Admin
 				<form method="get" action="' . Url::html_output($_SERVER['PHP_SELF']) . '">
 				<p><input type="hidden" name="action" value="copy_url" />
 				<input type="hidden" name="dir" value="' . $dir . '" />
-				<input type="radio" name="protocol" value="http://" checked="checked" />http://
-				<br /><input type="radio" name="protocol" value="ftp://" />ftp://
+				<input type="radio" name="protocol" value="http://" checked="checked" />http(s)_url:
+				<br /><input type="radio" name="protocol" value="ftp://" />ftp_url:
 				<input type="text" name="copy_file" /></p>
 				<p><input class="button" type="submit" value="Copy" />
 				</p></form></td></tr></table>';
