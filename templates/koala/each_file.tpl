@@ -15,7 +15,7 @@
    {file:size}
   </td>
   <td class="autoindex_td_right">
-   {file:date}
+   {file:m_time}
   </td>
   {if:description_file}
   <td class="autoindex_td">
