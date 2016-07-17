@@ -39,7 +39,14 @@ if ($filename) {
 			$array['size'] = filesize($dir.$filename.".tmp");
 		else
 			$array['size']= 0;
-		$array['syn']= "true";
+		if(file_exists($dir.$filename) && filesize($dir.$filename)==$fileSize)
+		{
+			$array['syn']= "false";
+		}
+		else
+		{
+			$array['syn']= "true";
+		}	
 		echo json_encode($array);
 	}
 	else
@@ -53,8 +60,13 @@ if ($filename) {
 		}
 			
 		else
-			rename($dir.$filename.".tmp",$dir.$filename);
-		
+		{
+			if(file_exists($dir.$filename))	
+			{
+				rename($dir.$filename.".tmp",$dir.$filename.".please rename");
+			}
+				
+		}	
 	}
 	
     //$array['getsize'] = $_FILES['file']['size'];

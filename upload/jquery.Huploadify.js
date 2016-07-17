@@ -418,7 +418,7 @@ $.fn.Huploadify = function(opts){
 										}	
 									else
 										{
-											uploadedSize += option.fileSplitSize;
+											uploadedSize = fileSize;
 										}
 									fileObj.funSaveUploadedSize(originalFile,uploadedSize);	
 									//继续上传其他片段
@@ -432,8 +432,11 @@ $.fn.Huploadify = function(opts){
 										}
 									}
 									else{
-										option.formData.uploadDone="true";
-										sendBlob(fileObj.url,xhr,file,option.formData);	
+										if(returnData.syn=="true")
+										{
+											option.formData.uploadDone="true";
+											sendBlob(fileObj.url,xhr,file,option.formData);	
+										}	
 										regulateView();
 										
 									}
@@ -471,7 +474,7 @@ $.fn.Huploadify = function(opts){
 				  option.formData.fileName = originalFile.name;
 				  option.formData.lastModifiedDate = originalFile.lastModifiedDate.getTime();
 				  //option.formData.dir="<?php echo $_GET['dir'];?>";
-				  option.fileSize=fileSize;
+				  option.formData.fileSize=fileSize;
 				  option.formData.dir=option.currentdir;
 				  option.formData.syn="false";
 				  option.formData.uploadDone="false";
