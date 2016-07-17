@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 .uploadify-button{
 	display:inline-block;
@@ -34,7 +34,6 @@
     font-size:12px;
 	color:#666;
 	cursor:pointer;
-	background:url(images/btnbg.png) repeat-x 0 0;
 	text-decoration:none;
 	}
 .up_filename,.progressnum,.delfilebtn,.uploadbtn,.up_percent{

@@ -173,10 +173,10 @@ $.fn.Huploadify = function(opts){
 					//处理模板中使用的变量
 					var $html = $(option.itemTemplate.replace(/\${fileID}/g,'fileupload_'+instanceNumber+'_'+file.index).replace(/\${fileName}/g,file.name).replace(/\${fileSize}/g,formatFileSize(file.size)).replace(/\${instanceID}/g,_this.attr('id')));
 					//如果是自动上传，去掉上传按钮
-					if(option.auto){
+					/* if(option.auto){
 						$html.find('.uploadbtn').remove();
-					}
-
+					} */
+					$html.find('.uploadbtn').remove();
 					//如果开启断点续传，先初始化原来上传的文件大小
 					var initWidth = 0,initFileSize = '0KB',initUppercent = '0%';
 					if(option.breakPoints){
