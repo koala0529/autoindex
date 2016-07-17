@@ -145,6 +145,7 @@ $.fn.Huploadify = function(opts){
 		  url: option.uploader,						//ajax地址
 		  fileFilter: [],					//过滤后的文件数组
 		  uploadOver:false, //一次上传是否真正结束，用于断点续传的情况
+		  //uploadsize: 0,
 		  filter: function(files) {		//选择文件组的过滤方法
 			  var arr = [];
 			  var typeArray = getFileTypes(option.fileTypeExts);
@@ -193,7 +194,6 @@ $.fn.Huploadify = function(opts){
 						//initFileSize = uploadedSize.toString();
 				  		initUppercent = (uploadedSize / file.size * 100).toFixed(2) + '%';
 				  	}
-
 				  	$html.find('.uploadify-progress-bar').css('width',initWidth);
 					}
 
@@ -239,6 +239,7 @@ $.fn.Huploadify = function(opts){
 				var lastLoaded = eleProgress.attr('lastLoaded') || 0;
 				var progressBar = eleProgress.children('.uploadify-progress-bar');
 				var oldWidth = option.breakPoints ? parseFloat(progressBar.get(0).style.width || 0) : 0;
+				//var oldWidth=fileObj.uploadsize*100/total;
 				//修正添加的内容
 				var processsize=(oldWidth  * total / 100);
 				if(option.showUploadedSize){
@@ -248,7 +249,7 @@ $.fn.Huploadify = function(opts){
 				
 				loaded -= parseInt(lastLoaded);
 				var percent = (loaded / total * 100 + oldWidth).toFixed(2);
-		
+				//var percent = oldWidth.toFixed(2);
 				var percentText = percent > 100 ? '99.99%' : percent+'%';//校正四舍五入的计算误差
 				//原先的给注释掉了
 				/* if(option.showUploadedSize){
@@ -259,7 +260,7 @@ $.fn.Huploadify = function(opts){
 				if(option.showUploadedPercent){
 					eleProgress.nextAll('.up_percent').text(percentText);	
 				}
-
+				//alert(percentText);
 				progressBar.css('width',percentText);
 
 				//记录本次触发progress时已上传的大小，用来计算下次需增加的数量
@@ -381,7 +382,7 @@ $.fn.Huploadify = function(opts){
 			  if (xhr.upload && uploadedSize !== false) {
 				  // 上传中
 				  xhr.upload.addEventListener("progress", function(e) {
-					  fileObj.onProgress(file, e.loaded, originalFile.size);
+					  fileObj.onProgress(file , e.loaded, originalFile.size);
 				  }, false);
 	  
 				  // 文件上传成功或是失败
@@ -390,10 +391,35 @@ $.fn.Huploadify = function(opts){
 					  	fileObj.uploadOver = true;
 						  if (xhr.status == 200) {
 								var returnData = xhr.responseText ? JSON.parse(xhr.responseText) : {} ;
+								if(option.formData.uploadDone=="true")
+								{
+									return;
+								}
+								//alert(returnData.syn);
+								//alert(returnData.size);
 								//将文件块数据更新到本地记录
 								if(option.breakPoints){
 									//更新已上传文件大小，保存到本地
-									uploadedSize += option.fileSplitSize;
+									if(returnData.syn=="true")
+										{
+											//uploadedSize += option.fileSplitSize;
+											uploadedSize=returnData.size;
+											if(option.formData.syn=="false")
+											{
+												initWidth = (uploadedSize / fileSize * 100) + '%';
+												var eleProgress = _this.find('#fileupload_'+instanceNumber+'_'+file.index+' .uploadify-progress');
+												var progressBar = eleProgress.children('.uploadify-progress-bar');
+												if(option.showUploadedPercent){
+																	eleProgress.nextAll('.up_percent').text(initWidth);	
+																}
+												progressBar.css('width',initWidth);
+											}
+											option.formData.syn="true";
+										}	
+									else
+										{
+											uploadedSize += option.fileSplitSize;
+										}
 									fileObj.funSaveUploadedSize(originalFile,uploadedSize);	
 									//继续上传其他片段
 									if(uploadedSize<fileSize){
@@ -401,12 +427,15 @@ $.fn.Huploadify = function(opts){
 										if(fileObj.uploadAllowed){
 											file = originalFile.slice(uploadedSize,uploadedSize + option.fileSplitSize);
 									  	file.name = fileName;file.id = fileId;file.index = fileIndex;file.size = fileSize;
-											option.formData.fileName=fileName;
+											//option.formData.fileName=fileName;
 											sendBlob(fileObj.url,xhr,file,option.formData);	
 										}
 									}
 									else{
+										option.formData.uploadDone="true";
+										sendBlob(fileObj.url,xhr,file,option.formData);	
 										regulateView();
+										
 									}
 								}
 								else{
@@ -433,16 +462,19 @@ $.fn.Huploadify = function(opts){
 						  
 					  }
 				  };
-	  
+				
 	  			option.onUploadStart&&option.onUploadStart();	
 				  // 开始上传
  				  //option.formData['file_name'] = originalFile.name;
 				  //option.formData['last_time'] = originalFile.lastModifiedDate.getTime();
-
+				  //alert("on start!");
 				  option.formData.fileName = originalFile.name;
 				  option.formData.lastModifiedDate = originalFile.lastModifiedDate.getTime();
 				  //option.formData.dir="<?php echo $_GET['dir'];?>";
+				  option.fileSize=fileSize;
 				  option.formData.dir=option.currentdir;
+				  option.formData.syn="false";
+				  option.formData.uploadDone="false";
 				  fileObj.uploadAllowed = true;//重置允许上传为true
 				  sendBlob(this.url,xhr,file,option.formData);
 			  }	

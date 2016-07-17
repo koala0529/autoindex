@@ -2,7 +2,9 @@ var dirvar;
 function SetDir(dir)
 {
 	dirvar=dir;
+	//alert("ok");
 }
+
 function GetQueryString(name)
 {
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -16,7 +18,7 @@ $(function(){
 				multi:true,
 				fileSizeLimit:99999999,
 				breakPoints:true,
-				saveInfoLocal:true,
+				saveInfoLocal:false,
 				showUploadedPercent:true,//是否实时显示上传的百分比，如20%
 				showUploadedSize:true,
 				removeTimeout:1,
