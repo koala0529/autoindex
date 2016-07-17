@@ -65,6 +65,9 @@ if ($filename) {
 			{
 				rename($dir.$filename.".tmp",$dir.$filename.".please rename");
 			}
+			{
+				rename($dir.$filename.".tmp",$dir.$filename);
+			}
 				
 		}	
 	}
