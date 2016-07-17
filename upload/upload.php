@@ -68,7 +68,6 @@ if ($filename) {
 			{
 				rename($dir.$filename.".tmp",$dir.$filename);
 			}
-				
 		}	
 	}
 	

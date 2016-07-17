@@ -426,8 +426,9 @@ $.fn.Huploadify = function(opts){
 										fileObj.uploadOver = false;
 										if(fileObj.uploadAllowed){
 											file = originalFile.slice(uploadedSize,uploadedSize + option.fileSplitSize);
-									  	file.name = fileName;file.id = fileId;file.index = fileIndex;file.size = fileSize;
-											//option.formData.fileName=fileName;
+											file.name = fileName;file.id = fileId;file.index = fileIndex;file.size = fileSize;
+											option.formData.fileName=fileName;
+											option.formData.syn="true";
 											sendBlob(fileObj.url,xhr,file,option.formData);	
 										}
 									}
@@ -435,7 +436,10 @@ $.fn.Huploadify = function(opts){
 										if(returnData.syn=="true")
 										{
 											option.formData.uploadDone="true";
+											option.formData.fileName=fileName;
+											option.formData.syn="true";
 											sendBlob(fileObj.url,xhr,file,option.formData);	
+											option.formData.uploadDone="false";
 										}	
 										regulateView();
 										
@@ -472,7 +476,7 @@ $.fn.Huploadify = function(opts){
 				  //option.formData['last_time'] = originalFile.lastModifiedDate.getTime();
 				  //alert("on start!");
 				  option.formData.fileName = originalFile.name;
-				  option.formData.lastModifiedDate = originalFile.lastModifiedDate.getTime();
+				  //option.formData.lastModifiedDate = originalFile.lastModifiedDate.getTime();
 				  //option.formData.dir="<?php echo $_GET['dir'];?>";
 				  option.formData.fileSize=fileSize;
 				  option.formData.dir=option.currentdir;
